@@ -23,9 +23,6 @@ function displayNextQuestionAndAnswer() {
         const question = jsonData.quizz[currentIndex].question;
         const answer = jsonData.quizz[currentIndex].answer;
 
-        console.log(`Question: ${question}`);
-        console.log(`Answer: ${answer}`);
-
         document.getElementById("front").innerHTML = `<p>${question}</p>`;
         document.getElementById("back").innerHTML = `<p>${answer}</p>`;
 
