@@ -4,6 +4,7 @@
     margin: 0;
     text-decoration: none;
 	outline: none;
+    user-select: none;
 }
 
 body,
@@ -78,7 +79,6 @@ html {
 
 .questions-scroller {
     margin-top: 1em;
-    user-select: none;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -112,6 +112,28 @@ html {
 
 #next-button {
     background-image: url('/src/img/arrow_right.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#previous-button {
+    background-image: url('/src/img/arrow_left.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+/* Import button */
+
+.import-questions button {
+    border-radius: 50%;
+    box-shadow: #666 0 0 10px;
+    padding: 1.5em;
+    margin: 0 8%;
+    border: 0;
+}
+
+#import-button {
+    background-image: url('/src/img/plus_icon.png');
     background-repeat: no-repeat;
     background-size: contain;
 }
