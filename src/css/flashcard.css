@@ -1,0 +1,117 @@
+* {
+    font-family: monospace, sans-serif;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+	outline: none;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    flex-direction: column; /* Place les éléments en colonnes */
+}
+
+.main {
+    text-align: center; /* Pour centrer le texte du titre */
+    margin: -5% 0 5%;
+}
+
+.center-container {
+    text-align: center;
+    width: 45%;
+    height: 40%;
+}
+
+.flip-container {
+    perspective: 1000px;
+    width: 100%;
+    height: 100%;
+}
+
+.flipper {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.25s;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 90px;
+}
+
+.front,
+.back {
+    border-radius: 15px;
+    box-shadow: #666 0 0 10px;
+    width: 100%;
+    height: 100%;
+    backface-visibility: visible;
+}
+
+.front {
+    background-color: #eee;
+    text-transform: uppercase;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.back {
+    background-color: #ccc;
+    transform: rotateX(180deg);
+    display: none;
+}
+
+@media screen and (max-width: 800px) {
+    .center-container {
+        width: 80%;
+        height: 40%;
+    }
+}
+
+/* Questions scroller */
+
+.questions-scroller {
+    margin-top: 1em;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: lightskyblue;
+}
+
+/* Previous, shuffle and next question buttons */
+
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* Put space between shuffle and previous/next buttons */
+    align-items: center;
+    margin-top: 1em;
+}
+
+.button-container button {
+    border-radius: 30%;
+    box-shadow: #666 0 0 10px;
+    padding: 2em;
+    margin: 0 8%;
+    border: 0;
+}
+
+#shuffle-button {
+    background-image: url('/src/img/shuffle_icon.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#next-button {
+    background-image: url('/src/img/arrow_right.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
