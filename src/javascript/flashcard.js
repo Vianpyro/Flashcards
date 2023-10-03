@@ -12,9 +12,11 @@ flipper.addEventListener('click', () => {
     }
 });
 
-// Next question
+// Question selection
 const questionContainer = document.querySelector('.question-container');
 const nextButton = document.getElementById('next-button');
+const randomButton = document.getElementById('shuffle-button');
+const previousButton = document.getElementById('previous-button');
 
 let currentIndex = 0;
 
@@ -32,7 +34,39 @@ function displayNextQuestionAndAnswer() {
     }
 }
 
+function displayRandomQuestionAndAnswer() {
+    let randomIndex;;
+    if (jsonData.quizz.length > 1) {
+        do {
+            randomIndex = Math.floor(Math.random() * jsonData.quizz.length);
+        }
+        while (randomIndex === currentIndex);
+    }
+
+    const question = jsonData.quizz[randomIndex].question;
+    const answer = jsonData.quizz[randomIndex].answer;
+    
+    document.getElementById("front").innerHTML = `<p>${question}</p>`;
+    document.getElementById("back").innerHTML = `<p>${answer}</p>`;
+}
+
+function displayPreviousQuestionAndAnswer() {
+    if (currentIndex > 0) {
+        const question = jsonData.quizz[currentIndex].question;
+        const answer = jsonData.quizz[currentIndex].answer;
+
+        document.getElementById("front").innerHTML = `<p>${question}</p>`;
+        document.getElementById("back").innerHTML = `<p>${answer}</p>`;
+
+        currentIndex--; // Move to the previous question
+    } else {
+        currentIndex = jsonData.quizz.length--;
+    }
+}
+
 nextButton.addEventListener('click', displayNextQuestionAndAnswer);
+randomButton.addEventListener('click', displayRandomQuestionAndAnswer);
+previousButton.addEventListener('click', displayPreviousQuestionAndAnswer);
 
 // Import
 var jsonData;
