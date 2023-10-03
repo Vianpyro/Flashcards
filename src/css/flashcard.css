@@ -116,19 +116,19 @@ html {
 }
 
 #shuffle-button {
-    background-image: url('../../img/shuffle_icon.png');
+    background-image: url('../img/shuffle_icon.png');
     background-repeat: no-repeat;
     background-size: contain;
 }
 
 #next-button {
-    background-image: url('../../img/arrow_right.png');
+    background-image: url('../img/arrow_right.png');
     background-repeat: no-repeat;
     background-size: contain;
 }
 
 #previous-button {
-    background-image: url('../../img/arrow_left.png');
+    background-image: url('../img/arrow_left.png');
     background-repeat: no-repeat;
     background-size: contain;
 }
@@ -146,7 +146,7 @@ html {
 }
 
 #import-button {
-    background-image: url('../../img/plus_icon.png');
+    background-image: url('../img/plus_icon.png');
     background-repeat: no-repeat;
     background-size: contain;
 }
