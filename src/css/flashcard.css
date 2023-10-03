@@ -43,7 +43,11 @@ html {
     transition: transform 0.25s;
     text-align: center;
     vertical-align: middle;
-    line-height: 90px;
+    line-height: 3em;
+}
+
+.flipper p {
+    margin: 1em;
 }
 
 .front,
