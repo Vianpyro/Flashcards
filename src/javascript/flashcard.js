@@ -1,99 +1,91 @@
-const flipper = document.querySelector('.flipper');
+document.addEventListener('DOMContentLoaded', () => {
+    const flipper = document.querySelector('.flipper');
+    const nextButton = document.getElementById('next-button');
+    const randomButton = document.getElementById('shuffle-button');
+    const previousButton = document.getElementById('previous-button');
+    const fileInput = document.getElementById('file-input');
+    const frontDisplay = document.getElementById("front");
+    const backDisplay = document.getElementById("back");
+    const titleDisplay = document.getElementById("title");
+    const questionsScroller = document.querySelector('.questions-scroller');
+    const front = flipper.querySelector('.front');
+    const back = flipper.querySelector('.back');
 
-flipper.addEventListener('click', () => {
-    if (flipper.style.transform === 'rotateX(180deg)') {
-        flipper.style.transform = 'rotateX(0deg)';
-        flipper.querySelector('.front').style.display = 'flex';
-        flipper.querySelector('.back').style.display = 'none';
-    } else {
-        flipper.style.transform = 'rotateX(180deg)';
-        flipper.querySelector('.front').style.display = 'none';
-        flipper.querySelector('.back').style.display = 'flex';
+    let currentIndex = 0;
+    let jsonData;
+
+    function updateDisplay(question, answer) {
+        frontDisplay.innerHTML = `<p>${question}</p>`;
+        backDisplay.innerHTML = `<p>${answer}</p>`;
     }
-});
 
-// Question selection
-const questionContainer = document.querySelector('.question-container');
-const nextButton = document.getElementById('next-button');
-const randomButton = document.getElementById('shuffle-button');
-const previousButton = document.getElementById('previous-button');
-
-let currentIndex = 0;
-
-function displayNextQuestionAndAnswer() {
-    if (currentIndex < jsonData.quizz.length) {
-        const question = jsonData.quizz[currentIndex].question;
-        const answer = jsonData.quizz[currentIndex].answer;
-
-        document.getElementById("front").innerHTML = `<p>${question}</p>`;
-        document.getElementById("back").innerHTML = `<p>${answer}</p>`;
-
-        currentIndex++; // Move to the next question
-    } else {
-        currentIndex = 0;
+    function displayQuestionAndAnswer(index) {
+        const question = jsonData.quizz[index].question;
+        const answer = jsonData.quizz[index].answer;
+        updateDisplay(question, answer);
     }
-}
 
-function displayRandomQuestionAndAnswer() {
-    let randomIndex;;
-    if (jsonData.quizz.length > 1) {
+    function displayQuestionAndAnswer(index) {
+        toggleFlipper('front');
+        const question = jsonData.quizz[index].question;
+        const answer = jsonData.quizz[index].answer;
+        frontDisplay.innerHTML = `<p>${question}</p>`;
+        backDisplay.innerHTML = `<p>${answer}</p>`;
+    }
+
+    nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % jsonData.quizz.length;
+        displayQuestionAndAnswer(currentIndex);
+    });
+
+    previousButton.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + jsonData.quizz.length) % jsonData.quizz.length;
+        displayQuestionAndAnswer(currentIndex);
+    });
+
+    randomButton.addEventListener('click', () => {
+        let randomIndex;
         do {
             randomIndex = Math.floor(Math.random() * jsonData.quizz.length);
+        } while (randomIndex === currentIndex);
+        currentIndex = randomIndex;
+        displayQuestionAndAnswer(currentIndex);
+    });
+
+    fileInput.addEventListener('change', (event) => {
+        const selectedFile = event.target.files[0];
+
+        if (selectedFile) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const fileContent = e.target.result;
+                jsonData = JSON.parse(fileContent);
+                titleDisplay.textContent = jsonData.title;
+                const numberOfQuestions = jsonData.quizz.length;
+                questionsScroller.textContent = '•'.repeat(numberOfQuestions);
+                currentIndex = 0;
+                displayQuestionAndAnswer(currentIndex);
+            };
+
+            reader.readAsText(selectedFile);
+            fileInput.value = '';
         }
-        while (randomIndex === currentIndex);
+    });
+
+    function toggleFlipper(side) {
+        if (flipper.style.transform === 'rotateX(180deg)' || side === 'front') {
+            flipper.style.transform = 'rotateX(0deg)';
+            front.style.display = 'flex';
+            back.style.display = 'none';
+        } else {
+            flipper.style.transform = 'rotateX(180deg)';
+            front.style.display = 'none';
+            back.style.display = 'flex';
+        }
     }
 
-    const question = jsonData.quizz[randomIndex].question;
-    const answer = jsonData.quizz[randomIndex].answer;
-    
-    document.getElementById("front").innerHTML = `<p>${question}</p>`;
-    document.getElementById("back").innerHTML = `<p>${answer}</p>`;
-}
-
-function displayPreviousQuestionAndAnswer() {
-    if (currentIndex > 0) {
-        const question = jsonData.quizz[currentIndex].question;
-        const answer = jsonData.quizz[currentIndex].answer;
-
-        document.getElementById("front").innerHTML = `<p>${question}</p>`;
-        document.getElementById("back").innerHTML = `<p>${answer}</p>`;
-
-        currentIndex--; // Move to the previous question
-    } else {
-        currentIndex = jsonData.quizz.length--;
-    }
-}
-
-nextButton.addEventListener('click', displayNextQuestionAndAnswer);
-randomButton.addEventListener('click', displayRandomQuestionAndAnswer);
-previousButton.addEventListener('click', displayPreviousQuestionAndAnswer);
-
-// Import
-var jsonData;
-const fileInput = document.getElementById('file-input');
-const importButton = document.getElementById('import-button');
-
-fileInput.addEventListener('change', (event) => {
-    const selectedFile = event.target.files[0];
-    
-    if (selectedFile) {
-        const reader = new FileReader();
-        
-        reader.onload = function (e) {
-            const fileContent = e.target.result;
-            jsonData = JSON.parse(fileContent);
-            
-            document.getElementById("title").textContent = jsonData.title;
-            
-            // Questions scroller
-            var nombreDePoints = jsonData.quizz.length;
-            var questionsScroller = document.querySelector('.questions-scroller');
-            var pointsString = '•'.repeat(nombreDePoints);
-            questionsScroller.textContent = pointsString;
-            displayNextQuestionAndAnswer();
-        };
-        
-        reader.readAsText(selectedFile);
-        fileInput.value = '';
-    }
+    flipper.addEventListener('click', () => {
+        toggleFlipper(); // Toggle between front and back when clicking.
+    });
 });
