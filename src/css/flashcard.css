@@ -78,14 +78,18 @@ html {
 }
 
 @media screen and (max-width: 850px) {
+    .main {
+        margin: -35% 0 0;
+    }
+    
     .center-container {
         width: 80%;
-        height: 40%;
+        height: 45%;
     }
 
     .front,
     .back {
-        font-size: x-large;
+        font-size: large;
         font-weight: bold;
     }
 }
