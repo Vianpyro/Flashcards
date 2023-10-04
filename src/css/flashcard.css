@@ -3,12 +3,12 @@
     padding: 0;
     margin: 0;
     text-decoration: none;
-	outline: none;
+    outline: none;
     user-select: none;
+    transition-duration: .5s;
 }
 
-body,
-html {
+body, html {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -16,12 +16,21 @@ html {
     justify-content: center;
     align-items: center;
     background-color: #f0f0f0;
-    flex-direction: column; /* Place les éléments en colonnes */
+    flex-direction: column;
 }
 
 .main {
-    text-align: center; /* Pour centrer le texte du titre */
-    margin: -5% 0 5%;
+    text-align: center;
+    margin: -10vh 0 3vh;
+}
+
+.title h1 {
+    font-size: calc(24px + 5vw);
+}
+
+.title:hover {
+    transition-delay: 3s;
+    transform: rotateX(360deg);
 }
 
 .center-container {
@@ -42,7 +51,6 @@ html {
     transform-style: preserve-3d;
     transition: transform 0.25s;
     text-align: center;
-    vertical-align: middle;
     line-height: 3em;
 }
 
@@ -50,8 +58,7 @@ html {
     margin: 1em;
 }
 
-.front,
-.back {
+.front, .back {
     font-size: xx-large;
     font-weight: bold;
     border-radius: 15px;
@@ -59,16 +66,19 @@ html {
     width: 100%;
     height: 100%;
     backface-visibility: visible;
-    display: flex; /* Add flex display */
-    align-items: center; /* Vertically center content */
-    justify-content: center; /* Horizontally center content (optional) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.front:hover, .back:hover {
+    box-shadow: #666 0 0 20px;
 }
 
 .front {
     background-color: #eee;
     text-transform: uppercase;
-    height: 100%;
-    justify-content: center; /* Horizontally center content (optional) */
+    justify-content: center;
 }
 
 .back {
@@ -87,8 +97,7 @@ html {
         height: 45%;
     }
 
-    .front,
-    .back {
+    .front, .back {
         font-size: large;
         font-weight: bold;
     }
@@ -105,58 +114,63 @@ html {
     color: lightskyblue;
 }
 
-/* Previous, shuffle and next question buttons */
+/* Previous, shuffle, and next question buttons */
 
 .button-container {
     width: 100%;
     display: flex;
-    justify-content: space-between; /* Put space between shuffle and previous/next buttons */
+    justify-content: space-between;
     align-items: center;
     margin-top: 1em;
 }
 
 .button-container button {
-    border-radius: 30%;
-    box-shadow: #666 0 0 10px;
     padding: 2em;
     margin: 0 8%;
     border: 0;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 #shuffle-button {
     background-image: url('../img/shuffle_icon.png');
-    background-repeat: no-repeat;
-    background-size: contain;
 }
 
 #next-button {
     background-image: url('../img/arrow_right.png');
-    background-repeat: no-repeat;
-    background-size: contain;
 }
 
 #previous-button {
     background-image: url('../img/arrow_left.png');
-    background-repeat: no-repeat;
-    background-size: contain;
+}
+
+.button-container button:hover {
+    box-shadow: #666 0 0 10px;
+    transform: scale(1.05);
+    border-radius: 35%;
 }
 
 /* Import button */
 
 .import-questions label {
     height: auto;
-    border-radius: 50%;
-    box-shadow: #666 0 0 10px;
+    border-radius: 50% 50% 5px 5px;
     padding: 1em 1.6em;
     margin: 0 8%;
     border: 0;
     line-height: 90px;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 #import-button {
-    background-image: url('../img/plus_icon.png');
-    background-repeat: no-repeat;
-    background-size: contain;
+    background-image: url('../img/import_icon.png');
+}
+
+.import-questions label:hover {
+    box-shadow: #666 0 0 10px;
+    border-radius: 5px;
 }
 
 #title {
