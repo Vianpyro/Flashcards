@@ -11,9 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const front = flipper.querySelector('.front');
     const back = flipper.querySelector('.back');
 
-    let currentIndex = 0;
+    let currentIndex;
     let jsonData;
-    let numberOfQuestions = 0;
+    let numberOfQuestions;
 
     function updateDisplay(question, answer) {
         frontDisplay.innerHTML = `<p>${question}</p>`;
@@ -26,14 +26,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const question = jsonData.quizz[index].question;
         const answer = jsonData.quizz[index].answer;
         updateDisplay(question, answer);
-        
-        // Question scroller dots
-        const filledDots = Array(index).fill('•');
-        const activeDot = '<span class="qs-active">•</span>';
-        const remainingDots = Array(Math.max(0, numberOfQuestions - index - 1)).fill('•');
-    
-        const result = filledDots.join('') + activeDot + remainingDots.join('');
-        questionsScroller.innerHTML = result;
+        renderDots(index);
+    }
+
+    function renderDots(center_dot_index) {
+        const dots = [];
+
+        for (let i = 0; i < numberOfQuestions; i++) {
+            const dot = document.createElement('span');
+            dot.innerHTML = '•';
+
+            if (i === center_dot_index) {
+                dot.className = 'qs-active';
+            } else {
+                dot.addEventListener('click', function () {
+                    displayQuestionAndAnswer(i);
+                });
+            }
+
+            dots.push(dot);
+        }
+
+        questionsScroller.innerHTML = '';
+        dots.forEach(dot => questionsScroller.appendChild(dot));
     }
 
     nextButton.addEventListener('click', () => {
@@ -66,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 jsonData = JSON.parse(fileContent);
                 titleDisplay.textContent = jsonData.title;
                 numberOfQuestions = jsonData.quizz.length;
-                console.log(numberOfQuestions);
                 currentIndex = 0;
                 displayQuestionAndAnswer(currentIndex);
             };
