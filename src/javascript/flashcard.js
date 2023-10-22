@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Get references to various HTML elements
     const flipper = document.querySelector('.flipper');
     const nextButton = document.getElementById('next-button');
     const randomButton = document.getElementById('shuffle-button');
@@ -11,16 +12,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const front = flipper.querySelector('.front');
     const back = flipper.querySelector('.back');
 
+    // Initialize variables
     let currentIndex;
     let jsonData;
     let numberOfQuestions;
 
+    // Update the question and answer displays
     function updateDisplay(question, answer) {
         frontDisplay.innerHTML = `<p>${question}</p>`;
         backDisplay.innerHTML = `<p>${answer}</p>`;
-
     }
-    
+
+    // Display a specific question and answer
     function displayQuestionAndAnswer(index) {
         toggleFlipper('front');
         const question = jsonData.quizz[index].question;
@@ -29,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderDots(index);
     }
 
+    // Render navigation dots for questions
     function renderDots(center_dot_index) {
         const dots = [];
 
@@ -39,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (i === center_dot_index) {
                 dot.className = 'qs-active';
             } else {
+                // Add a click event listener to change the displayed question
                 dot.addEventListener('click', function () {
                     displayQuestionAndAnswer(i);
                 });
@@ -51,16 +56,19 @@ document.addEventListener('DOMContentLoaded', () => {
         dots.forEach(dot => questionsScroller.appendChild(dot));
     }
 
+    // Handle the "Next" button click event
     nextButton.addEventListener('click', () => {
         currentIndex = (currentIndex + 1) % jsonData.quizz.length;
         displayQuestionAndAnswer(currentIndex);
     });
 
+    // Handle the "Previous" button click event
     previousButton.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + jsonData.quizz.length) % jsonData.quizz.length;
         displayQuestionAndAnswer(currentIndex);
     });
 
+    // Handle the "Random" button click event
     randomButton.addEventListener('click', () => {
         let randomIndex;
         do {
@@ -70,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayQuestionAndAnswer(currentIndex);
     });
 
+    // Handle file input change event to load a JSON file
     fileInput.addEventListener('change', (event) => {
         const selectedFile = event.target.files[0];
 
@@ -90,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Toggle the flipper between front and back when clicked
     function toggleFlipper(side) {
         if (flipper.style.transform === 'rotateX(180deg)' || side === 'front') {
             flipper.style.transform = 'rotateX(0deg)';
@@ -102,7 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Add a click event listener to the flipper to toggle between front and back
     flipper.addEventListener('click', () => {
-        toggleFlipper(); // Toggle between front and back when clicking.
+        toggleFlipper();
     });
 });
