@@ -13,24 +13,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentIndex = 0;
     let jsonData;
+    let numberOfQuestions = 0;
 
     function updateDisplay(question, answer) {
         frontDisplay.innerHTML = `<p>${question}</p>`;
         backDisplay.innerHTML = `<p>${answer}</p>`;
-    }
 
-    function displayQuestionAndAnswer(index) {
-        const question = jsonData.quizz[index].question;
-        const answer = jsonData.quizz[index].answer;
-        updateDisplay(question, answer);
     }
-
+    
     function displayQuestionAndAnswer(index) {
         toggleFlipper('front');
         const question = jsonData.quizz[index].question;
         const answer = jsonData.quizz[index].answer;
-        frontDisplay.innerHTML = `<p>${question}</p>`;
-        backDisplay.innerHTML = `<p>${answer}</p>`;
+        updateDisplay(question, answer);
+        
+        // Question scroller dots
+        const filledDots = Array(index).fill('•');
+        const activeDot = '<span class="qs-active">•</span>';
+        const remainingDots = Array(Math.max(0, numberOfQuestions - index - 1)).fill('•');
+    
+        const result = filledDots.join('') + activeDot + remainingDots.join('');
+        questionsScroller.innerHTML = result;
     }
 
     nextButton.addEventListener('click', () => {
@@ -62,8 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const fileContent = e.target.result;
                 jsonData = JSON.parse(fileContent);
                 titleDisplay.textContent = jsonData.title;
-                const numberOfQuestions = jsonData.quizz.length;
-                questionsScroller.textContent = '•'.repeat(numberOfQuestions);
+                numberOfQuestions = jsonData.quizz.length;
+                console.log(numberOfQuestions);
                 currentIndex = 0;
                 displayQuestionAndAnswer(currentIndex);
             };
