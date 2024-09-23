@@ -82,8 +82,14 @@ html {
     background-color: #eee;
     text-transform: uppercase;
     justify-content: space-around;
-    overflow: hidden;
     flex-direction: column-reverse;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
 }
 
 .back {
