@@ -81,7 +81,9 @@ html {
 .front {
     background-color: #eee;
     text-transform: uppercase;
-    justify-content: center;
+    justify-content: space-around;
+    overflow: hidden;
+    flex-direction: column-reverse;
 }
 
 .back {
