@@ -68,6 +68,15 @@ label {
     gap: 5em;
 }
 
+#edit-input {
+    display: none;
+}
+
+#edit-input:checked~#edit-button {
+    background-color: lightgreen;
+    background-image: url(../img/tabler--download.svg);
+}
+
 /* Flashcard */
 
 #flashcard-container {
