@@ -1,16 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Get references to various HTML elements
-    const flipper = document.querySelector(".flipper");
+    const flipper = document.querySelector("#flipper");
     const nextButton = document.getElementById("next-button");
     const randomButton = document.getElementById("shuffle-button");
     const previousButton = document.getElementById("previous-button");
     const fileInput = document.getElementById("file-input");
     const frontDisplay = document.getElementById("front");
     const backDisplay = document.getElementById("back");
-    const titleDisplay = document.getElementById("title");
-    const questionsScroller = document.querySelector(".questions-scroller");
-    const front = flipper.querySelector(".front");
-    const back = flipper.querySelector(".back");
+    const titleDisplay = document.getElementById("quizz-title");
+    const questionsScroller = document.getElementById("questions-scroller");
+    const front = flipper.querySelector("#front");
+    const back = flipper.querySelector("#back");
 
     // Disable the buttons until a file is loaded
     nextButton.disabled = true;
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
             dot.innerHTML = "•";
 
             if (i === center_dot_index) {
-                dot.className = "qs-active";
+                dot.id = "qs-active";
             } else {
                 // Add a click event listener to change the displayed question
                 dot.addEventListener("click", function () {

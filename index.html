@@ -2,44 +2,53 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="src/css/flashcard.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/css/flashcard.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Flashcards</title>
 </head>
 
 <body>
-    <div class="main">
-        <div class="title">
-            <h1>Flashcards</h1>
+    <header>
+        <h1>Flashcards</h1>
+
+        <div id="file-input-buttons">
+            <div id="import-quizz">
+                <input type="file" id="file-input" accept=".json" style="display: none" />
+                <label for="file-input" id="import-button" title="Import Quiz"></label>
+            </div>
+            <div id="edit-quizz">
+                <button id="edit-button" title="Edit Quizz"></button>
+            </div>
         </div>
-        <div class="import-questions">
-            <input type="file" id="file-input" accept=".json" style="display: none;">
-            <label for="file-input" id="import-button" title="Import Quiz"></label>
-            <h2 id="title"></h2>
-        </div>
-    </div>
-    <div class="question-container"></div>
-    <div class="center-container">
-        <div class="flip-container">
-            <div class="flipper" title="Clic to flip the card">
-                <div class="front" id="front">
+    </header>
+
+    <main>
+        <h1 id="quizz-title"></h1>
+
+        <div id="flashcard-container">
+            <div id="flipper" title="Clic to flip the card">
+                <div id="front">
                     <p>Import a quizz to start...</p>
                 </div>
-                <div class="back" id="back">
+                <div id="back">
                     <p>Import a quizz to start...</p>
                 </div>
             </div>
         </div>
-        <div class="question-scroller-wrapper">
-            <div class="questions-scroller"></div>
-        </div>
-        <div class="button-container">
+
+        <div id="questions-scroller"></div>
+
+        <div id="navigation-buttons">
             <button id="previous-button" title="Previous"></button>
             <button id="shuffle-button" title="Shuffle"></button>
             <button id="next-button" title="Next"></button>
         </div>
-    </div>
+    </main>
+
+    <footer>
+        <p>© 2024 - Vianney Veremme</p>
+    </footer>
 
     <script src="src/javascript/flashcard.js"></script>
 </body>
