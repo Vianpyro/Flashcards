@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const randomButton = document.getElementById("shuffle-button");
     const previousButton = document.getElementById("previous-button");
     const fileInput = document.getElementById("file-input");
+    const fileEdit = document.getElementById("edit-input");
+    const addImage = document.getElementById("add-image-button");
+    const downloadButton = document.getElementById("download-button");
     const frontDisplay = document.getElementById("front");
     const backDisplay = document.getElementById("back");
     const titleDisplay = document.getElementById("quizz-title");
@@ -18,9 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
     previousButton.disabled = true;
 
     // Initialize variables
-    let currentIndex;
-    let jsonData;
-    let numberOfQuestions;
+    let currentIndex = 0;
+    let jsonData = {};
+    let numberOfQuestions = 0;
+
+    console.log("Flashcard app loaded!", jsonData);
 
     // Update the question and answer displays
     function updateDisplay(question, image, answer) {
@@ -112,6 +117,50 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    fileEdit.addEventListener("change", () => {
+        if (fileEdit.checked) {
+            // Enable editing
+            frontDisplay.contentEditable = true;
+            backDisplay.contentEditable = true;
+            titleDisplay.contentEditable = true;
+
+            // Show the add image button
+            addImage.style.display = "block";
+        } else {
+            // Hide the add image button
+            addImage.style.display = "none";
+
+            // Create the quizz objects if it doesn't exist
+            if (!jsonData.quizz) {
+                jsonData.quizz = [];
+            }
+
+            if (!jsonData.quizz[currentIndex]) {
+                jsonData.quizz[currentIndex] = {};
+            }
+
+            if (!jsonData.quizz[currentIndex].question) {
+                jsonData.quizz[currentIndex].question = "";
+            }
+
+            if (!jsonData.quizz[currentIndex].answer) {
+                jsonData.quizz[currentIndex].answer = "";
+            }
+
+            if (!jsonData.quizz[currentIndex].image) {
+                jsonData.quizz[currentIndex].image = "";
+            }
+
+            // Disable editing and save the changes
+            frontDisplay.contentEditable = false;
+            backDisplay.contentEditable = false;
+            titleDisplay.contentEditable = false;
+            jsonData.title = titleDisplay.innerText.replace(/\n/g, '').trim();
+            jsonData.quizz[currentIndex].question = frontDisplay.innerText.replace(/\n/g, '').trim();
+            jsonData.quizz[currentIndex].answer = backDisplay.innerText.replace(/\n/g, '').trim();
+        }
+    });
+
     // Toggle the flipper between front and back when clicked
     function toggleFlipper(side) {
         if (flipper.style.transform === "rotateX(180deg)" || side === "front") {
@@ -127,7 +176,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Add a click event listener to the flipper to toggle between front and back
     flipper.addEventListener("click", () => {
-        toggleFlipper();
+        if (!fileEdit.checked) toggleFlipper();
+    });
+
+    downloadButton.addEventListener('click', function () {
+        console.log("Download button clicked!");
+        downloadJSON(jsonData, "quizz");
     });
 });
 
@@ -147,4 +201,23 @@ function convertImageToBase64(file, callback) {
     reader.onerror = function (error) {
         console.error("Error: ", error);
     };
+}
+
+function downloadJSON(jsonData, fileName) {
+    // Convert JSON object to a string
+    const jsonString = JSON.stringify(jsonData, null, 2);
+
+    // Create a Blob with the JSON data
+    const blob = new Blob([jsonString], { type: "application/json" });
+
+    // Create a temporary anchor element
+    const tempLink = document.createElement("a");
+    tempLink.href = URL.createObjectURL(blob);
+    tempLink.download = `${fileName}.json`;
+
+    // Simulate a click on the anchor element
+    tempLink.click();
+
+    // Revoke the object URL to free up memory
+    URL.revokeObjectURL(tempLink.href);
 }
