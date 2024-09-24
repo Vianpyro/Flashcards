@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch("https://api.github.com/repos/Vianpyro/flashcards/actions/runs")
         .then(response => response.json())
         .then(data => {
-            const successfulRun = data.workflow_runs.find(run => run.status === "completed" && run.conclusion === "success");
+            const successfulRun = data.workflow_runs.find(run => run.status === "completed" && run.conclusion === "success" && run.event === "release");
             if (successfulRun) {
                 const latestVersion = successfulRun.display_title;
                 appTitle.title = latestVersion;
