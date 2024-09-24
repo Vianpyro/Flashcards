@@ -1,33 +1,41 @@
 * {
-    font-family: monospace, sans-serif;
     color: var(--text-color);
-    padding: 0;
+    font-family: monospace, sans-serif;
     margin: 0;
-    text-decoration: none;
     outline: none;
-    user-select: none;
+    padding: 0;
+    text-decoration: none;
     transition-duration: .5s;
+    user-select: none;
 
 }
 
 body {
-    height: 100svh;
+    align-items: center;
+    background-color: var(--background-color-primary);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     gap: 2em;
-    background-color: var(--background-color-primary);
+    height: 100svh;
+    justify-content: center;
+}
+
+img {
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+    pointer-events: none;
+    width: 100%;
 }
 
 main {
-    height: 75svh;
+    align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: clamp(300px, 80%, 1000px);
     gap: 1em;
+    height: 75svh;
+    justify-content: space-between;
+    width: clamp(300px, 80%, 1000px);
 }
 
 /* Header */
@@ -35,35 +43,35 @@ main {
 button,
 label {
     background-color: transparent;
-    width: 4em;
-    height: 4em;
-    border: none;
-    cursor: pointer;
     background-size: cover;
+    border: none;
     border-radius: 50%;
+    cursor: pointer;
+    height: 4em;
+    width: 4em;
+}
+
+label {
+    display: flex;
+    height: 3.1em;
+    width: 3.1em;
 }
 
 button:hover,
 label:hover {
-    transform: scale(1.1);
     box-shadow: var(--highlight-color) 0 0 10px;
+    transform: scale(1.1);
 }
 
 header {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 50%;
 }
 
 header h1 {
     font-size: 8svh;
-}
-
-label {
-    display: flex;
-    width: 3.1em;
-    height: 3.1em;
 }
 
 #file-input-buttons {
@@ -76,32 +84,28 @@ label {
 }
 
 #download-button {
-    background-image: url(../img/tabler--download.svg);
-}
-
-#edit-input:checked~#edit-button {
-    background-color: var(--active-color);
+    background-image: url("../img/tabler--download.svg");
 }
 
 /* Flashcard */
 
 #flashcard-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: clamp(0px, 100%, 525px);
+    justify-content: center;
     perspective: 1000px;
     width: 100%;
-    height: clamp(0px, 100%, 525px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
 }
 
 #flipper {
-    width: 100%;
     height: 100%;
+    line-height: 2em;
+    text-align: center;
     transform-style: preserve-3d;
     transition: transform 0.25s;
-    text-align: center;
-    line-height: 2em;
+    width: 100%;
 }
 
 #flipper p {
@@ -109,18 +113,31 @@ label {
     margin: 1em;
 }
 
+#front {
+    background-color: var(--background-color-secondary);
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-around;
+    text-transform: uppercase;
+}
+
+#back {
+    background-color: var(--background-color-tertiary);
+    display: none;
+    transform: rotateX(180deg);
+}
+
 #front,
 #back {
-    font-size: xx-large;
-    font-weight: bold;
+    align-items: center;
+    backface-visibility: visible;
     border-radius: 15px;
     box-shadow: var(--highlight-color) 0 0 10px;
-    width: 100%;
-    height: 100%;
-    backface-visibility: visible;
-    display: flex;
-    align-items: center;
+    font-size: xx-large;
+    font-weight: bold;
     justify-content: center;
+    height: 100%;
+    width: 100%;
 }
 
 #front:hover,
@@ -128,55 +145,34 @@ label {
     box-shadow: var(--highlight-color) 0 0 20px;
 }
 
-#front {
-    background-color: var(--background-color-secondary);
-    text-transform: uppercase;
-    justify-content: space-around;
-    flex-direction: column-reverse;
-}
-
-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    overflow: hidden;
-    pointer-events: none;
-}
-
-#back {
-    background-color: var(--background-color-tertiary);
-    transform: rotateX(180deg);
-    display: none;
-}
-
 #add-image-button {
-    background-image: url(../img/bx--image-add.svg);
+    background-image: url("../img/bx--image-add.svg");
 }
 
 #add-flashcard {
-    background-image: url(../img/material-symbols--add-card.svg);
+    background-image: url("../img/material-symbols--add-card.svg");
 }
 
 #flip-flashcard {
-    background-image: url(../img/solar--flip-vertical-bold.svg);
+    background-image: url("../img/solar--flip-vertical-bold.svg");
 }
 
 #delete-flashcard {
-    background-image: url(../img/material-symbols--delete-outline.svg);
+    background-image: url("../img/material-symbols--delete-outline.svg");
 }
 
 /* Navigation */
 
 #questions-scroller {
-    width: 80%;
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: center;
+    width: 80%;
 }
 
 #questions-scroller span {
-    font-size: x-large;
     color: var(--highlight-color);
+    font-size: x-large;
 }
 
 #questions-scroller span#qs-active {
@@ -195,32 +191,36 @@ img {
 }
 
 #import-button {
-    background-image: url(../img/tabler--file-import.svg);
+    background-image: url("../img/tabler--file-import.svg");
 }
 
 #edit-button {
-    background-image: url(../img/tabler--edit.svg);
+    background-image: url("../img/tabler--edit.svg");
 }
 
 #previous-button {
-    background-image: url(../img/tabler--arrow-left.svg);
+    background-image: url("../img/tabler--arrow-left.svg");
 }
 
 #shuffle-button {
-    background-image: url(../img/tabler--arrows-shuffle.svg);
+    background-image: url("../img/tabler--arrows-shuffle.svg");
 }
 
 #next-button {
-    background-image: url(../img/tabler--arrow-right.svg);
+    background-image: url("../img/tabler--arrow-right.svg");
+}
+
+#edit-input:checked~#edit-button {
+    background-color: var(--active-color);
 }
 
 /* Footer */
 
 footer {
     display: flex;
+    gap: 1em;
     justify-content: center;
     width: 100%;
-    gap: 1em;
 }
 
 /* Responsiveness */
