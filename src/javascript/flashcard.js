@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Render navigation dots for questions
     function renderDots(center_dot_index) {
         numberOfQuestions = jsonData.quizz.length;
-        if (numberOfQuestions <= 1) return;
         const dots = [];
 
         for (let i = 0; i < numberOfQuestions; i++) {
@@ -70,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         questionsScroller.innerHTML = "";
+        if (numberOfQuestions <= 1) return;
         dots.forEach((dot) => questionsScroller.appendChild(dot));
         questionsScroller.style.display = "flex";
     }
@@ -218,6 +218,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add the new flashcard to the jsonData.quizz array
         jsonData.quizz.push(newFlashcard);
         numberOfQuestions = jsonData.quizz.length;
+
+        saveFlashcardChanges();
 
         // Set the current index to the new flashcard and display it
         currentIndex = numberOfQuestions - 1;
