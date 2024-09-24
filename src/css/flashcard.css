@@ -161,6 +161,10 @@ img {
     background-image: url(../img/solar--flip-vertical-bold.svg);
 }
 
+#delete-flashcard {
+    background-image: url(../img/material-symbols--delete-outline.svg);
+}
+
 /* Navigation */
 
 #questions-scroller {

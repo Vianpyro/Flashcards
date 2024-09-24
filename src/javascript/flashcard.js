@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const addImage = document.getElementById("add-image");
     const addFlashcard = document.getElementById("add-flashcard");
     const flipFlashcard = document.getElementById("flip-flashcard");
+    const deleteFlashcard = document.getElementById("delete-flashcard");
     const imageInput = document.getElementById('image-input');
     const downloadButton = document.getElementById("download-button");
     const frontDisplay = document.getElementById("front");
@@ -48,8 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Render navigation dots for questions
     function renderDots(center_dot_index) {
-        const dots = [];
         numberOfQuestions = jsonData.quizz.length;
+        if (numberOfQuestions <= 1) return;
+        const dots = [];
 
         for (let i = 0; i < numberOfQuestions; i++) {
             const dot = document.createElement("span");
@@ -135,11 +137,13 @@ document.addEventListener("DOMContentLoaded", () => {
             addImage.style.display = "block";
             addFlashcard.style.display = "block";
             flipFlashcard.style.display = "block";
+            deleteFlashcard.style.display = "block";
         } else {
             // Hide the add image button
             addImage.style.display = "none";
             addFlashcard.style.display = "none";
             flipFlashcard.style.display = "none";
+            deleteFlashcard.style.display = "none";
 
             // Disable editing and save the changes
             frontDisplay.contentEditable = false;
@@ -228,6 +232,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
     flipFlashcard.addEventListener("click", () => {
         toggleFlipper();
+    });
+
+    // Handle the "Delete Flashcard" button click event
+    deleteFlashcard.addEventListener("click", () => {
+        if (jsonData.quizz.length === 0) return;
+
+        // Show a confirmation dialog
+        const confirmDelete = confirm("Are you sure you want to delete this flashcard?");
+
+        if (confirmDelete) {
+            // Remove the current flashcard from the array
+            jsonData.quizz.splice(currentIndex, 1);
+            numberOfQuestions = jsonData.quizz.length;
+
+            // Adjust the currentIndex to a valid index
+            if (currentIndex >= numberOfQuestions) {
+                currentIndex = numberOfQuestions - 1;
+            }
+
+            // If there are no flashcards left, clear the display
+            if (numberOfQuestions === 0) {
+                addFlashcard.click();
+            } else {
+                // Display the next available flashcard
+                displayQuestionAndAnswer(currentIndex);
+            }
+
+            // Update the navigation dots
+            renderDots(currentIndex);
+        }
     });
 });
 
