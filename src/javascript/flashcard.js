@@ -256,10 +256,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Retrieve the latest version of the application on Github
-    fetch("https://api.github.com/repos/Vianpyro/flashcards/releases/latest")
+    fetch("https://api.github.com/repos/Vianpyro/flashcards/actions/runs")
         .then(response => response.json())
         .then(data => {
-            const latestVersion = data.name;
+            const latestVersion = data.workflow_runs[0].display_title;
             appTitle.title = latestVersion;
         });
 });
