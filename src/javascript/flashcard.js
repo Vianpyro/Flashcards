@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Render navigation dots for questions
     function renderDots(center_dot_index) {
         const dots = [];
+        numberOfQuestions = jsonData.quizz.length;
 
         for (let i = 0; i < numberOfQuestions; i++) {
             const dot = document.createElement("span");
@@ -67,22 +68,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
         questionsScroller.innerHTML = "";
         dots.forEach((dot) => questionsScroller.appendChild(dot));
+        questionsScroller.style.display = "flex";
     }
 
     // Handle the "Next" button click event
     nextButton.addEventListener("click", () => {
+        if (fileEdit.checked) saveFlashcardChanges();
         currentIndex = (currentIndex + 1) % jsonData.quizz.length;
         displayQuestionAndAnswer(currentIndex);
     });
 
     // Handle the "Previous" button click event
     previousButton.addEventListener("click", () => {
+        if (fileEdit.checked) saveFlashcardChanges();
         currentIndex = (currentIndex - 1 + jsonData.quizz.length) % jsonData.quizz.length;
         displayQuestionAndAnswer(currentIndex);
     });
 
     // Handle the "Random" button click event
     randomButton.addEventListener("click", () => {
+        if (fileEdit.checked) saveFlashcardChanges();
         let randomIndex;
         do {
             randomIndex = Math.floor(Math.random() * jsonData.quizz.length);
@@ -137,14 +142,8 @@ document.addEventListener("DOMContentLoaded", () => {
             backDisplay.contentEditable = false;
             titleDisplay.contentEditable = false;
 
-            // Create the quizz objects if it doesn't exist
-            if (!jsonData.quizz) jsonData.quizz = [];
-            if (!jsonData.quizz[currentIndex]) jsonData.quizz[currentIndex] = {};
-
             // Save the changes
-            jsonData.title = cleanText(titleDisplay.innerText);
-            jsonData.quizz[currentIndex].question = cleanText(frontDisplay.innerText);
-            jsonData.quizz[currentIndex].answer = cleanText(backDisplay.innerText);
+            saveFlashcardChanges();
         }
     });
 
@@ -161,6 +160,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function saveFlashcardChanges() {
+        // Create the quizz objects if it doesn't exist
+        if (!jsonData.quizz) jsonData.quizz = [];
+        if (!jsonData.quizz[currentIndex]) jsonData.quizz[currentIndex] = {};
+
+        // Save the changes
+        jsonData.title = cleanText(titleDisplay.innerText);
+        jsonData.quizz[currentIndex].question = cleanText(frontDisplay.innerText);
+        jsonData.quizz[currentIndex].answer = cleanText(backDisplay.innerText);
+    }
+
+    saveFlashcardChanges();
+
     // Add a click event listener to the flipper to toggle between front and back
     flipper.addEventListener("click", () => {
         if (!fileEdit.checked) toggleFlipper();
@@ -175,9 +187,39 @@ document.addEventListener("DOMContentLoaded", () => {
         const file = event.target.files[0];
         if (file) {
             convertImageToBase64(file, (base64String) => {
+                // Save the image to the current flashcard
                 jsonData.quizz[currentIndex].image = base64String;
+
+                // Immediately update the display with the new image
+                const currentQuestion = jsonData.quizz[currentIndex].question;
+                const currentAnswer = jsonData.quizz[currentIndex].answer;
+                updateDisplay(currentQuestion, base64String, currentAnswer);
             });
         }
+    });
+
+
+    // Handle the "Add Flashcard" button click event
+    addFlashcard.addEventListener("click", () => {
+        const newFlashcard = {
+            question: "New question",
+            answer: "New answer",
+            image: null
+        };
+
+        // Add the new flashcard to the jsonData.quizz array
+        jsonData.quizz.push(newFlashcard);
+        numberOfQuestions = jsonData.quizz.length;
+
+        // Set the current index to the new flashcard and display it
+        currentIndex = numberOfQuestions - 1;
+        displayQuestionAndAnswer(currentIndex);
+        updateDisplay(newFlashcard.question, newFlashcard.image, newFlashcard.answer);
+
+        // Enable the navigation buttons if they were disabled
+        nextButton.disabled = false;
+        randomButton.disabled = false;
+        previousButton.disabled = false;
     });
 });
 
