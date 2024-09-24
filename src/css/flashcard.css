@@ -23,7 +23,7 @@ main {
     height: 75svh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     width: clamp(300px, 80%, 1000px);
     gap: 1em;
@@ -151,11 +151,6 @@ img {
     background-image: url(../img/hugeicons--image-add.svg);
 }
 
-#flashcard-edition {
-    display: flex;
-    gap: 5em;
-}
-
 #add-flashcard {
     background-image: url(../img/tabler--text-plus.svg);
 }
@@ -178,7 +173,8 @@ img {
     color: var(--selection-color);
 }
 
-#navigation-buttons {
+#navigation-buttons,
+#flashcard-edition {
     display: flex;
     justify-content: space-around;
     width: 100%;
@@ -211,9 +207,14 @@ img {
 /* Responsiveness */
 @media screen and (width<=850px) {
 
+    #navigation-buttons,
+    #flashcard-edition {
+        justify-content: space-between;
+    }
+
     body,
     main {
-        gap: 0;
+        gap: 1em;
     }
 
     #front,
