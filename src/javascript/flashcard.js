@@ -87,6 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Handle the "Random" button click event
     randomButton.addEventListener("click", () => {
+        if (jsonData.quizz.length < 2) return;
         if (fileEdit.checked) saveFlashcardChanges();
         let randomIndex;
         do {
