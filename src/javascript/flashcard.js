@@ -236,9 +236,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function toggleButtonsState() {
         const disableButtons = jsonData.quizz.length <= 1;
-        nextButton.disabled = disableButtons;
-        randomButton.disabled = disableButtons;
-        previousButton.disabled = disableButtons;
+        [nextButton, randomButton, previousButton].forEach(button => {
+            button.disabled = disableButtons;
+        });
     }
 });
 
