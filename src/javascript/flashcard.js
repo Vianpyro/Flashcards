@@ -6,7 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const previousButton = document.getElementById("previous-button");
     const fileInput = document.getElementById("file-input");
     const fileEdit = document.getElementById("edit-input");
-    const addImage = document.getElementById("add-image-button");
+    const addImage = document.getElementById("add-image");
+    const addFlashcard = document.getElementById("add-flashcard");
+    const imageInput = document.getElementById('image-input');
     const downloadButton = document.getElementById("download-button");
     const frontDisplay = document.getElementById("front");
     const backDisplay = document.getElementById("back");
@@ -24,8 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentIndex = 0;
     let jsonData = {};
     let numberOfQuestions = 0;
-
-    console.log("Flashcard app loaded!", jsonData);
 
     // Update the question and answer displays
     function updateDisplay(question, image, answer) {
@@ -119,13 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fileEdit.addEventListener("change", () => {
         if (fileEdit.checked) {
-            // Create the quizz objects if it doesn't exist
-            if (!jsonData.quizz) jsonData.quizz = [];
-            if (!jsonData.quizz[currentIndex]) jsonData.quizz[currentIndex] = {};
-            if (!jsonData.quizz[currentIndex].question) jsonData.quizz[currentIndex].question = "";
-            if (!jsonData.quizz[currentIndex].answer) jsonData.quizz[currentIndex].answer = "";
-            if (!jsonData.quizz[currentIndex].image) jsonData.quizz[currentIndex].image = "";
-
             // Enable editing
             frontDisplay.contentEditable = true;
             backDisplay.contentEditable = true;
@@ -133,19 +126,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Show the add image button
             addImage.style.display = "block";
+            addFlashcard.style.display = "block";
         } else {
             // Hide the add image button
             addImage.style.display = "none";
+            addFlashcard.style.display = "none";
 
             // Disable editing and save the changes
             frontDisplay.contentEditable = false;
             backDisplay.contentEditable = false;
             titleDisplay.contentEditable = false;
 
+            // Create the quizz objects if it doesn't exist
+            if (!jsonData.quizz) jsonData.quizz = [];
+            if (!jsonData.quizz[currentIndex]) jsonData.quizz[currentIndex] = {};
+
             // Save the changes
-            jsonData.title = titleDisplay.innerText.replace(/\n/g, '').trim();
-            jsonData.quizz[currentIndex].question = frontDisplay.innerText.replace(/\n/g, '').trim();
-            jsonData.quizz[currentIndex].answer = backDisplay.innerText.replace(/\n/g, '').trim();
+            jsonData.title = cleanText(titleDisplay.innerText);
+            jsonData.quizz[currentIndex].question = cleanText(frontDisplay.innerText);
+            jsonData.quizz[currentIndex].answer = cleanText(backDisplay.innerText);
         }
     });
 
@@ -170,6 +169,15 @@ document.addEventListener("DOMContentLoaded", () => {
     downloadButton.addEventListener('click', function () {
         if (fileEdit.checked) fileEdit.click();
         downloadJSON(jsonData, "quizz");
+    });
+
+    imageInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            convertImageToBase64(file, (base64String) => {
+                jsonData.quizz[currentIndex].image = base64String;
+            });
+        }
     });
 });
 
@@ -208,4 +216,8 @@ function downloadJSON(jsonData, fileName) {
 
     // Revoke the object URL to free up memory
     URL.revokeObjectURL(tempLink.href);
+}
+
+function cleanText(text) {
+    return text.replace(/\n/g, '').trim();
 }

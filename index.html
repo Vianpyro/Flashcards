@@ -29,7 +29,10 @@
         <h1 id="quizz-title">Import a quizz to start, or...</h1>
 
         <div id="flashcard-container">
-            <button id="add-image-button" style="display: none;" title="Add an image to this question"></button>
+            <div id="add-image" style="display: none;">
+                <input type="file" id="image-input" accept="image/*" style="display: none" />
+                <label for="image-input" id="add-image-button" title="Add an image to this question"></label>
+            </div>
 
             <div id="flipper" title="Clic to flip the card">
                 <div id="front">
@@ -41,7 +44,9 @@
             </div>
         </div>
 
-        <div id="questions-scroller"></div>
+        <button id="add-flashcard" title="Add new flashcard" style="display: none;"></button>
+
+        <div id="questions-scroller" style="display: none;"></div>
 
         <div id="navigation-buttons">
             <button id="previous-button" title="Previous"></button>

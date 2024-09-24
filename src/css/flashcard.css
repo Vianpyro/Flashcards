@@ -148,6 +148,10 @@ img {
     background-image: url(../img/hugeicons--image-add.svg);
 }
 
+#add-flashcard {
+    background-image: url(../img/tabler--text-plus.svg);
+}
+
 /* Navigation */
 
 #questions-scroller {
