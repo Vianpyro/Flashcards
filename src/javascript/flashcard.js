@@ -259,8 +259,11 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch("https://api.github.com/repos/Vianpyro/flashcards/actions/runs")
         .then(response => response.json())
         .then(data => {
-            const latestVersion = data.workflow_runs[0].display_title;
-            appTitle.title = latestVersion;
+            const successfulRun = data.workflow_runs.find(run => run.status === "completed" && run.conclusion === "success");
+            if (successfulRun) {
+                const latestVersion = successfulRun.display_title;
+                appTitle.title = latestVersion;
+            }
         });
 });
 
