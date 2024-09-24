@@ -24,20 +24,16 @@ document.addEventListener("DOMContentLoaded", () => {
     let jsonData = { "quizz": [] };
 
     // Update the question and answer displays
-    function updateDisplay(question, image, answer) {
-        // If the question has an image, display it
+    const updateDisplay = ({ question, image, answer }) => {
         frontDisplay.innerHTML = `<p>${question}</p>`;
         if (image) displayBase64Image(image, frontDisplay);
         backDisplay.innerHTML = `<p>${answer}</p>`;
-    }
+    };
 
     // Display a specific question and answer
     function displayQuestionAndAnswer(index) {
         toggleFlipper("front");
-        const question = jsonData.quizz[index].question;
-        const image = jsonData.quizz[index].image;
-        const answer = jsonData.quizz[index].answer;
-        updateDisplay(question, image, answer);
+        updateDisplay(jsonData.quizz[index]);
         renderDots(index);
     }
 
@@ -158,9 +154,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 jsonData.quizz[currentIndex].image = base64String;
 
                 // Immediately update the display with the new image
-                const currentQuestion = jsonData.quizz[currentIndex].question;
-                const currentAnswer = jsonData.quizz[currentIndex].answer;
-                updateDisplay(currentQuestion, base64String, currentAnswer);
+                console.log(jsonData.quizz[currentIndex]);
+                updateDisplay(jsonData.quizz[currentIndex]);
             });
         }
     });
@@ -182,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Set the current index to the new flashcard and display it
         currentIndex = jsonData.quizz.length - 1;
         displayQuestionAndAnswer(currentIndex);
-        updateDisplay(newFlashcard.question, newFlashcard.image, newFlashcard.answer);
+        updateDisplay(newFlashcard);
 
         toggleButtonsState();
     });
