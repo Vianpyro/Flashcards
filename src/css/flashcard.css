@@ -225,6 +225,11 @@ footer {
         gap: 1em;
     }
 
+    #quizz-title {
+        font-size: 5svw;
+        text-align: center;
+    }
+
     #flashcard-container {
         height: 50%;
     }
