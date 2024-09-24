@@ -19,15 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const front = flipper.querySelector("#front");
     const back = flipper.querySelector("#back");
 
-    // Disable the buttons until a file is loaded
-    nextButton.disabled = true;
-    randomButton.disabled = true;
-    previousButton.disabled = true;
-
     // Initialize variables
     let currentIndex = 0;
-    let jsonData = {};
-    let numberOfQuestions = 0;
+    let jsonData = { "quizz": [] };
 
     // Update the question and answer displays
     function updateDisplay(question, image, answer) {
@@ -49,10 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Render navigation dots for questions
     function renderDots(centerDotIndex) {
-        numberOfQuestions = jsonData.quizz.length;
         questionsScroller.innerHTML = "";
 
-        if (numberOfQuestions <= 1) return;
+        if (jsonData.quizz.length <= 1) return;
 
         jsonData.quizz.forEach((_, i) => {
             const dot = document.createElement("span");
@@ -102,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 const fileContent = e.target.result;
                 jsonData = JSON.parse(fileContent);
                 titleDisplay.textContent = jsonData.title;
-                numberOfQuestions = jsonData.quizz.length;
                 currentIndex = 0;
                 displayQuestionAndAnswer(currentIndex);
             };
@@ -110,11 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
             reader.readAsText(selectedFile);
             fileInput.value = "";
 
-            // Enable the buttons
-            if (numberOfQuestions <= 1) return;
-            nextButton.disabled = false;
-            randomButton.disabled = false;
-            previousButton.disabled = false;
+            toggleButtonsState();
         }
     });
 
@@ -142,8 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function saveFlashcardChanges() {
-        // Create the quizz objects if it doesn't exist
-        if (!jsonData.quizz) jsonData.quizz = [];
+        // Create the quizz object if it doesn't exist
         if (!jsonData.quizz[currentIndex]) jsonData.quizz[currentIndex] = {};
 
         // Save the changes
@@ -190,19 +177,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Add the new flashcard to the jsonData.quizz array
         jsonData.quizz.push(newFlashcard);
-        numberOfQuestions = jsonData.quizz.length;
 
         saveFlashcardChanges();
 
         // Set the current index to the new flashcard and display it
-        currentIndex = numberOfQuestions - 1;
+        currentIndex = jsonData.quizz.length - 1;
         displayQuestionAndAnswer(currentIndex);
         updateDisplay(newFlashcard.question, newFlashcard.image, newFlashcard.answer);
 
-        // Enable the navigation buttons if they were disabled
-        nextButton.disabled = false;
-        randomButton.disabled = false;
-        previousButton.disabled = false;
+        toggleButtonsState();
     });
 
     flipFlashcard.addEventListener("click", () => {
@@ -219,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (confirmDelete) {
             // Remove the current flashcard from the array
             jsonData.quizz.splice(currentIndex, 1);
-            numberOfQuestions = jsonData.quizz.length;
+            const numberOfQuestions = jsonData.quizz.length;
 
             // Adjust the currentIndex to a valid index
             if (currentIndex >= numberOfQuestions) {
@@ -250,6 +233,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (!isEditing) saveFlashcardChanges();
+    }
+
+    function toggleButtonsState() {
+        const disableButtons = jsonData.quizz.length <= 1;
+        nextButton.disabled = disableButtons;
+        randomButton.disabled = disableButtons;
+        previousButton.disabled = disableButtons;
     }
 });
 
