@@ -38,11 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Render navigation dots for questions
-    function renderDots(centerDotIndex) {
+    const renderDots = (centerDotIndex) => {
         questionsScroller.innerHTML = "";
-
-        if (jsonData.quizz.length <= 1) return;
-
         jsonData.quizz.forEach((_, i) => {
             const dot = document.createElement("span");
             dot.innerHTML = "•";
@@ -50,9 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
             dot.addEventListener("click", () => displayQuestionAndAnswer(i));
             questionsScroller.appendChild(dot);
         });
-
-        questionsScroller.style.display = "flex";
-    }
+        questionsScroller.style.display = jsonData.quizz.length > 1 ? "flex" : "none";
+    };
 
     // Handle the "Next" button click event
     nextButton.addEventListener("click", () => {
