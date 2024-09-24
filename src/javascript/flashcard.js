@@ -121,29 +121,10 @@ document.addEventListener("DOMContentLoaded", () => {
     fileEdit.addEventListener("change", () => {
         if (fileEdit.checked) {
             // Enable editing
-            frontDisplay.contentEditable = true;
-            backDisplay.contentEditable = true;
-            titleDisplay.contentEditable = true;
-
-            // Show the add image button
-            addImage.style.display = "block";
-            addFlashcard.style.display = "block";
-            flipFlashcard.style.display = "block";
-            deleteFlashcard.style.display = "block";
+            toggleEditMode(true);
         } else {
-            // Hide the add image button
-            addImage.style.display = "none";
-            addFlashcard.style.display = "none";
-            flipFlashcard.style.display = "none";
-            deleteFlashcard.style.display = "none";
-
             // Disable editing and save the changes
-            frontDisplay.contentEditable = false;
-            backDisplay.contentEditable = false;
-            titleDisplay.contentEditable = false;
-
-            // Save the changes
-            saveFlashcardChanges();
+            toggleEditMode(false);
         }
     });
 
@@ -257,6 +238,19 @@ document.addEventListener("DOMContentLoaded", () => {
             renderDots(currentIndex);
         }
     });
+
+    // Editing mode
+    function toggleEditMode(isEditing) {
+        frontDisplay.contentEditable = isEditing;
+        backDisplay.contentEditable = isEditing;
+        titleDisplay.contentEditable = isEditing;
+
+        [addImage, addFlashcard, flipFlashcard, deleteFlashcard].forEach(element => {
+            element.style.display = isEditing ? "block" : "none";
+        });
+
+        if (!isEditing) saveFlashcardChanges();
+    }
 });
 
 // Display a Base64 image
