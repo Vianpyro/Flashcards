@@ -20,6 +20,14 @@ body {
     background-color: var(--background-color-primary);
 }
 
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+    pointer-events: none;
+}
+
 main {
     height: 75svh;
     display: flex;
@@ -43,6 +51,12 @@ label {
     border-radius: 50%;
 }
 
+label {
+    display: flex;
+    width: 3.1em;
+    height: 3.1em;
+}
+
 button:hover,
 label:hover {
     transform: scale(1.1);
@@ -60,12 +74,6 @@ header h1 {
     font-size: 8svh;
 }
 
-label {
-    display: flex;
-    width: 3.1em;
-    height: 3.1em;
-}
-
 #file-input-buttons {
     display: flex;
     gap: 5em;
@@ -76,11 +84,7 @@ label {
 }
 
 #download-button {
-    background-image: url(../img/tabler--download.svg);
-}
-
-#edit-input:checked~#edit-button {
-    background-color: var(--active-color);
+    background-image: url("../img/tabler--download.svg");
 }
 
 /* Flashcard */
@@ -109,6 +113,19 @@ label {
     margin: 1em;
 }
 
+#front {
+    background-color: var(--background-color-secondary);
+    text-transform: uppercase;
+    justify-content: space-around;
+    flex-direction: column-reverse;
+}
+
+#back {
+    background-color: var(--background-color-tertiary);
+    transform: rotateX(180deg);
+    display: none;
+}
+
 #front,
 #back {
     font-size: xx-large;
@@ -128,41 +145,20 @@ label {
     box-shadow: var(--highlight-color) 0 0 20px;
 }
 
-#front {
-    background-color: var(--background-color-secondary);
-    text-transform: uppercase;
-    justify-content: space-around;
-    flex-direction: column-reverse;
-}
-
-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    overflow: hidden;
-    pointer-events: none;
-}
-
-#back {
-    background-color: var(--background-color-tertiary);
-    transform: rotateX(180deg);
-    display: none;
-}
-
 #add-image-button {
-    background-image: url(../img/bx--image-add.svg);
+    background-image: url("../img/bx--image-add.svg");
 }
 
 #add-flashcard {
-    background-image: url(../img/material-symbols--add-card.svg);
+    background-image: url("../img/material-symbols--add-card.svg");
 }
 
 #flip-flashcard {
-    background-image: url(../img/solar--flip-vertical-bold.svg);
+    background-image: url("../img/solar--flip-vertical-bold.svg");
 }
 
 #delete-flashcard {
-    background-image: url(../img/material-symbols--delete-outline.svg);
+    background-image: url("../img/material-symbols--delete-outline.svg");
 }
 
 /* Navigation */
@@ -195,23 +191,27 @@ img {
 }
 
 #import-button {
-    background-image: url(../img/tabler--file-import.svg);
+    background-image: url("../img/tabler--file-import.svg");
 }
 
 #edit-button {
-    background-image: url(../img/tabler--edit.svg);
+    background-image: url("../img/tabler--edit.svg");
 }
 
 #previous-button {
-    background-image: url(../img/tabler--arrow-left.svg);
+    background-image: url("../img/tabler--arrow-left.svg");
 }
 
 #shuffle-button {
-    background-image: url(../img/tabler--arrows-shuffle.svg);
+    background-image: url("../img/tabler--arrows-shuffle.svg");
 }
 
 #next-button {
-    background-image: url(../img/tabler--arrow-right.svg);
+    background-image: url("../img/tabler--arrow-right.svg");
+}
+
+#edit-input:checked~#edit-button {
+    background-color: var(--active-color);
 }
 
 /* Footer */
