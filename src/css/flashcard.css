@@ -148,8 +148,17 @@ img {
     background-image: url(../img/hugeicons--image-add.svg);
 }
 
+#flashcard-edition {
+    display: flex;
+    gap: 5em;
+}
+
 #add-flashcard {
     background-image: url(../img/tabler--text-plus.svg);
+}
+
+#flip-flashcard {
+    background-image: url(../img/solar--flip-vertical-bold.svg);
 }
 
 /* Navigation */

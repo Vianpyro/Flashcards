@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const fileEdit = document.getElementById("edit-input");
     const addImage = document.getElementById("add-image");
     const addFlashcard = document.getElementById("add-flashcard");
+    const flipFlashcard = document.getElementById("flip-flashcard");
     const imageInput = document.getElementById('image-input');
     const downloadButton = document.getElementById("download-button");
     const frontDisplay = document.getElementById("front");
@@ -133,10 +134,12 @@ document.addEventListener("DOMContentLoaded", () => {
             // Show the add image button
             addImage.style.display = "block";
             addFlashcard.style.display = "block";
+            flipFlashcard.style.display = "block";
         } else {
             // Hide the add image button
             addImage.style.display = "none";
             addFlashcard.style.display = "none";
+            flipFlashcard.style.display = "none";
 
             // Disable editing and save the changes
             frontDisplay.contentEditable = false;
@@ -221,6 +224,10 @@ document.addEventListener("DOMContentLoaded", () => {
         nextButton.disabled = false;
         randomButton.disabled = false;
         previousButton.disabled = false;
+    });
+
+    flipFlashcard.addEventListener("click", () => {
+        toggleFlipper();
     });
 });
 
