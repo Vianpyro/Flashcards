@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const deleteFlashcard = document.getElementById("delete-flashcard");
     const imageInput = document.getElementById('image-input');
     const downloadButton = document.getElementById("download-button");
+    const flashcardContainer = document.getElementById("flashcard-container");
     const frontDisplay = document.getElementById("front");
     const backDisplay = document.getElementById("back");
     const titleDisplay = document.getElementById("quizz-title");
@@ -22,6 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initialize variables
     let currentIndex = 0;
     let jsonData = { "quizz": [] };
+    let startX = 0;
+    let endX = 0;
 
     // Update the question and answer displays
     const updateDisplay = ({ question, image, answer }) => {
@@ -231,6 +234,27 @@ document.addEventListener("DOMContentLoaded", () => {
             button.disabled = disableButtons;
         });
     }
+
+    flashcardContainer.addEventListener("touchstart", (event) => {
+        startX = event.touches[0].clientX;
+        endX = startX;  // Initialize endX to startX
+    }, { passive: true });
+
+    flashcardContainer.addEventListener("touchmove", (event) => {
+        endX = event.touches[0].clientX;
+    }, { passive: true });
+
+    flashcardContainer.addEventListener("touchend", () => {
+        const diffX = startX - endX;
+
+        if (Math.abs(diffX) > 100) {
+            if (diffX > 0) {
+                nextButton.click();
+            } else {
+                previousButton.click();
+            }
+        }
+    });
 });
 
 // Display a Base64 image
