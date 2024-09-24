@@ -97,12 +97,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 titleDisplay.textContent = jsonData.title;
                 currentIndex = 0;
                 displayQuestionAndAnswer(currentIndex);
+                toggleButtonsState();
             };
 
             reader.readAsText(selectedFile);
             fileInput.value = "";
-
-            toggleButtonsState();
         }
     });
 
