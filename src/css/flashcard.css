@@ -101,7 +101,7 @@ label {
     transform-style: preserve-3d;
     transition: transform 0.25s;
     text-align: center;
-    line-height: 1em;
+    line-height: 2em;
 }
 
 #flipper p {
