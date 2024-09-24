@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Get references to various HTML elements
+    const appTitle = document.getElementById("app-title");
     const flipper = document.querySelector("#flipper");
     const nextButton = document.getElementById("next-button");
     const randomButton = document.getElementById("shuffle-button");
@@ -159,7 +160,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-
     // Handle the "Add Flashcard" button click event
     addFlashcard.addEventListener("click", () => {
         const newFlashcard = {
@@ -255,6 +255,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+
+    // Retrieve the latest version of the application on Github
+    fetch("https://api.github.com/repos/Vianpyro/flashcards/releases/latest")
+        .then(response => response.json())
+        .then(data => {
+            const latestVersion = data.name;
+            appTitle.title = latestVersion;
+        });
 });
 
 // Display a Base64 image
