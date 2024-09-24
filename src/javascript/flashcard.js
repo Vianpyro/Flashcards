@@ -48,29 +48,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Render navigation dots for questions
-    function renderDots(center_dot_index) {
+    function renderDots(centerDotIndex) {
         numberOfQuestions = jsonData.quizz.length;
-        const dots = [];
+        questionsScroller.innerHTML = "";
 
-        for (let i = 0; i < numberOfQuestions; i++) {
+        if (numberOfQuestions <= 1) return;
+
+        jsonData.quizz.forEach((_, i) => {
             const dot = document.createElement("span");
             dot.innerHTML = "•";
+            dot.id = i === centerDotIndex ? "qs-active" : "";
+            dot.addEventListener("click", () => displayQuestionAndAnswer(i));
+            questionsScroller.appendChild(dot);
+        });
 
-            if (i === center_dot_index) {
-                dot.id = "qs-active";
-            } else {
-                // Add a click event listener to change the displayed question
-                dot.addEventListener("click", function () {
-                    displayQuestionAndAnswer(i);
-                });
-            }
-
-            dots.push(dot);
-        }
-
-        questionsScroller.innerHTML = "";
-        if (numberOfQuestions <= 1) return;
-        dots.forEach((dot) => questionsScroller.appendChild(dot));
         questionsScroller.style.display = "flex";
     }
 
