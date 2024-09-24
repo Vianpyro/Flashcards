@@ -204,7 +204,17 @@ img {
     background-image: url(../img/tabler--arrow-right.svg);
 }
 
+/* Footer */
+
+footer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 1em;
+}
+
 /* Responsiveness */
+
 @media screen and (width<=850px) {
     header h1 {
         font-size: 15svw;
