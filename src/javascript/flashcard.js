@@ -164,8 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
     addFlashcard.addEventListener("click", () => {
         const newFlashcard = {
             question: "New question",
-            answer: "New answer",
-            image: null
+            answer: "New answer"
         };
 
         // Add the new flashcard to the jsonData.quizz array
