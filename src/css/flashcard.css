@@ -1,41 +1,41 @@
 * {
-    font-family: monospace, sans-serif;
     color: var(--text-color);
-    padding: 0;
+    font-family: monospace, sans-serif;
     margin: 0;
-    text-decoration: none;
     outline: none;
-    user-select: none;
+    padding: 0;
+    text-decoration: none;
     transition-duration: .5s;
+    user-select: none;
 
 }
 
 body {
-    height: 100svh;
+    align-items: center;
+    background-color: var(--background-color-primary);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     gap: 2em;
-    background-color: var(--background-color-primary);
+    height: 100svh;
+    justify-content: center;
 }
 
 img {
-    width: 100%;
     height: 100%;
     object-fit: cover;
     overflow: hidden;
     pointer-events: none;
+    width: 100%;
 }
 
 main {
-    height: 75svh;
+    align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: clamp(300px, 80%, 1000px);
     gap: 1em;
+    height: 75svh;
+    justify-content: space-between;
+    width: clamp(300px, 80%, 1000px);
 }
 
 /* Header */
@@ -43,30 +43,30 @@ main {
 button,
 label {
     background-color: transparent;
-    width: 4em;
-    height: 4em;
-    border: none;
-    cursor: pointer;
     background-size: cover;
+    border: none;
     border-radius: 50%;
+    cursor: pointer;
+    height: 4em;
+    width: 4em;
 }
 
 label {
     display: flex;
-    width: 3.1em;
     height: 3.1em;
+    width: 3.1em;
 }
 
 button:hover,
 label:hover {
-    transform: scale(1.1);
     box-shadow: var(--highlight-color) 0 0 10px;
+    transform: scale(1.1);
 }
 
 header {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 50%;
 }
 
@@ -90,22 +90,22 @@ header h1 {
 /* Flashcard */
 
 #flashcard-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: clamp(0px, 100%, 525px);
+    justify-content: center;
     perspective: 1000px;
     width: 100%;
-    height: clamp(0px, 100%, 525px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
 }
 
 #flipper {
-    width: 100%;
     height: 100%;
+    line-height: 2em;
+    text-align: center;
     transform-style: preserve-3d;
     transition: transform 0.25s;
-    text-align: center;
-    line-height: 2em;
+    width: 100%;
 }
 
 #flipper p {
@@ -115,29 +115,29 @@ header h1 {
 
 #front {
     background-color: var(--background-color-secondary);
-    text-transform: uppercase;
-    justify-content: space-around;
+    display: flex;
     flex-direction: column-reverse;
+    justify-content: space-around;
+    text-transform: uppercase;
 }
 
 #back {
     background-color: var(--background-color-tertiary);
-    transform: rotateX(180deg);
     display: none;
+    transform: rotateX(180deg);
 }
 
 #front,
 #back {
-    font-size: xx-large;
-    font-weight: bold;
+    align-items: center;
+    backface-visibility: visible;
     border-radius: 15px;
     box-shadow: var(--highlight-color) 0 0 10px;
-    width: 100%;
-    height: 100%;
-    backface-visibility: visible;
-    display: flex;
-    align-items: center;
+    font-size: xx-large;
+    font-weight: bold;
     justify-content: center;
+    height: 100%;
+    width: 100%;
 }
 
 #front:hover,
@@ -164,15 +164,15 @@ header h1 {
 /* Navigation */
 
 #questions-scroller {
-    width: 80%;
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: center;
+    width: 80%;
 }
 
 #questions-scroller span {
-    font-size: x-large;
     color: var(--highlight-color);
+    font-size: x-large;
 }
 
 #questions-scroller span#qs-active {
@@ -218,9 +218,9 @@ header h1 {
 
 footer {
     display: flex;
+    gap: 1em;
     justify-content: center;
     width: 100%;
-    gap: 1em;
 }
 
 /* Responsiveness */
