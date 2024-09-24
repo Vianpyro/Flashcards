@@ -120,6 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
             fileInput.value = "";
 
             // Enable the buttons
+            if (numberOfQuestions <= 1) return;
             nextButton.disabled = false;
             randomButton.disabled = false;
             previousButton.disabled = false;
