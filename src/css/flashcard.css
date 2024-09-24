@@ -173,7 +173,7 @@ img {
 }
 
 #questions-scroller span {
-    font-size: large;
+    font-size: x-large;
     color: var(--highlight-color);
 }
 
@@ -251,5 +251,9 @@ footer {
     #back {
         font-size: large;
         line-height: normal;
+    }
+
+    #questions-scroller span {
+        font-size: large;
     }
 }
