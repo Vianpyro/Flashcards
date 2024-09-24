@@ -119,6 +119,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fileEdit.addEventListener("change", () => {
         if (fileEdit.checked) {
+            // Create the quizz objects if it doesn't exist
+            if (!jsonData.quizz) jsonData.quizz = [];
+            if (!jsonData.quizz[currentIndex]) jsonData.quizz[currentIndex] = {};
+            if (!jsonData.quizz[currentIndex].question) jsonData.quizz[currentIndex].question = "";
+            if (!jsonData.quizz[currentIndex].answer) jsonData.quizz[currentIndex].answer = "";
+            if (!jsonData.quizz[currentIndex].image) jsonData.quizz[currentIndex].image = "";
+
             // Enable editing
             frontDisplay.contentEditable = true;
             backDisplay.contentEditable = true;
@@ -130,31 +137,12 @@ document.addEventListener("DOMContentLoaded", () => {
             // Hide the add image button
             addImage.style.display = "none";
 
-            // Create the quizz objects if it doesn't exist
-            if (!jsonData.quizz) {
-                jsonData.quizz = [];
-            }
-
-            if (!jsonData.quizz[currentIndex]) {
-                jsonData.quizz[currentIndex] = {};
-            }
-
-            if (!jsonData.quizz[currentIndex].question) {
-                jsonData.quizz[currentIndex].question = "";
-            }
-
-            if (!jsonData.quizz[currentIndex].answer) {
-                jsonData.quizz[currentIndex].answer = "";
-            }
-
-            if (!jsonData.quizz[currentIndex].image) {
-                jsonData.quizz[currentIndex].image = "";
-            }
-
             // Disable editing and save the changes
             frontDisplay.contentEditable = false;
             backDisplay.contentEditable = false;
             titleDisplay.contentEditable = false;
+
+            // Save the changes
             jsonData.title = titleDisplay.innerText.replace(/\n/g, '').trim();
             jsonData.quizz[currentIndex].question = frontDisplay.innerText.replace(/\n/g, '').trim();
             jsonData.quizz[currentIndex].answer = backDisplay.innerText.replace(/\n/g, '').trim();
@@ -180,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     downloadButton.addEventListener('click', function () {
-        console.log("Download button clicked!");
+        if (fileEdit.checked) fileEdit.click();
         downloadJSON(jsonData, "quizz");
     });
 });
