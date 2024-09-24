@@ -1,5 +1,6 @@
 * {
     font-family: monospace, sans-serif;
+    color: var(--text-color);
     padding: 0;
     margin: 0;
     text-decoration: none;
@@ -15,6 +16,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 2em;
+    background-color: var(--background-color-primary);
 }
 
 main {
@@ -43,7 +45,7 @@ label {
 button:hover,
 label:hover {
     transform: scale(1.1);
-    box-shadow: #777 0 0 10px;
+    box-shadow: var(--highlight-color) 0 0 10px;
 }
 
 header {
@@ -77,7 +79,7 @@ label {
 }
 
 #edit-input:checked~#edit-button {
-    background-color: lightgreen;
+    background-color: var(--active-color);
 }
 
 /* Flashcard */
@@ -102,6 +104,7 @@ label {
 }
 
 #flipper p {
+    color: var(--text-color);
     margin: 1em;
 }
 
@@ -110,7 +113,7 @@ label {
     font-size: xx-large;
     font-weight: bold;
     border-radius: 15px;
-    box-shadow: #666 0 0 10px;
+    box-shadow: var(--highlight-color) 0 0 10px;
     width: 100%;
     height: 100%;
     backface-visibility: visible;
@@ -121,11 +124,11 @@ label {
 
 #front:hover,
 #back:hover {
-    box-shadow: #666 0 0 20px;
+    box-shadow: var(--highlight-color) 0 0 20px;
 }
 
 #front {
-    background-color: #eee;
+    background-color: var(--background-color-secondary);
     text-transform: uppercase;
     justify-content: space-around;
     flex-direction: column-reverse;
@@ -139,7 +142,7 @@ img {
 }
 
 #back {
-    background-color: #ccc;
+    background-color: var(--background-color-tertiary);
     transform: rotateX(180deg);
     display: none;
 }
@@ -167,12 +170,12 @@ img {
 
 /* Navigation */
 
-#questions-scroller {
-    color: lightgray;
+#questions-scroller span {
+    color: var(--highlight-color);
 }
 
-#qs-active {
-    color: lightskyblue;
+#questions-scroller span#qs-active {
+    color: var(--selection-color);
 }
 
 #navigation-buttons {

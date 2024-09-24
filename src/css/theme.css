@@ -1,0 +1,19 @@
+:root {
+    --background-color-primary: #f0f0f0;
+    --background-color-secondary: #eee;
+    --background-color-tertiary: #ccc;
+    --text-color: #111;
+    --highlight-color: #777;
+    --selection-color: lightskyblue;
+    --active-color: lightgreen;
+
+    @media (prefers-color-scheme: dark) {
+        --background-color-primary: #333;
+        --background-color-secondary: #222;
+        --background-color-tertiary: #111;
+        --text-color: #cfcfcf;
+        --highlight-color: #555;
+        --selection-color: #3d3d90;
+        --active-color: #465a46;
+    }
+}
