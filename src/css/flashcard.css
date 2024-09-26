@@ -79,6 +79,10 @@ header h1 {
     gap: 5em;
 }
 
+#ask-ai-button {
+    background-image: url("../img/hugeicons--artificial-intelligence-04.svg");
+}
+
 #edit-input {
     display: none;
 }
