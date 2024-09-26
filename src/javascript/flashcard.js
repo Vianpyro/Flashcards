@@ -270,6 +270,28 @@ fetch("https://api.github.com/repos/Vianpyro/flashcards/actions/runs")
 
 // Generate a prompt for an AI to create a quiz
 function generateAIPrompt() {
+    if (askAI.classList.contains("active")) {
+        // Ask the user for the AI answer JSON
+        const jsonAnswer = prompt("Enter the AI answer JSON:");
+        if (jsonAnswer) {
+            try {
+                const answer = JSON.parse(jsonAnswer);
+                if (answer.title && answer.quizz) {
+                    jsonData = answer;
+                    currentIndex = 0;
+                    displayQuestionAndAnswer(currentIndex);
+                    titleDisplay.textContent = jsonData.title;
+                    toggleButtonsState();
+                } else {
+                    alert("Invalid JSON format. Please try again.");
+                }
+            } catch (error) {
+                alert("Invalid JSON format. Please try again.");
+            }
+        }
+        return;
+    };
+
     // Get input from the user
     const content = prompt("Enter the subject of the quiz:");
     if (!content) return;
@@ -305,6 +327,7 @@ function generateAIPrompt() {
     // Copy the prompt template to the clipboard
     navigator.clipboard.writeText(promptTemplate);
     alert("The prompt template has been copied to your clipboard. Paste it in any AI chat to generate the quiz JSON.");
+    askAI.classList.toggle("active");
 }
 
 // Display a Base64 image
