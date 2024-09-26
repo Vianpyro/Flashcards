@@ -79,6 +79,10 @@ header h1 {
     gap: 5em;
 }
 
+#ask-ai-button {
+    background-image: url("../img/hugeicons--artificial-intelligence-04.svg");
+}
+
 #edit-input {
     display: none;
 }
@@ -210,7 +214,8 @@ header h1 {
     background-image: url("../img/tabler--arrow-right.svg");
 }
 
-#edit-input:checked~#edit-button {
+#edit-input:checked~#edit-button,
+.active {
     background-color: var(--active-color);
 }
 
