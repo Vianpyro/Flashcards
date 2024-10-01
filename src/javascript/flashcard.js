@@ -282,6 +282,7 @@ function generateAIPrompt() {
                     displayQuestionAndAnswer(currentIndex);
                     titleDisplay.textContent = jsonData.title;
                     toggleButtonsState();
+                    askAI.classList.toggle("active");
                 } else {
                     alert("Invalid JSON format. Please try again.");
                 }
