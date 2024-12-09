@@ -22,7 +22,7 @@ body {
 
 img {
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     overflow: hidden;
     pointer-events: none;
     width: 100%;
